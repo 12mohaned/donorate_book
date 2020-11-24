@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/* Returns the donation form to fill when dontaing a book
+
+book name, book info, etc..
+*/
 class MyDonorForm extends StatefulWidget {
   @override
   DonorForm createState() {
