@@ -13,16 +13,16 @@ class Book {
 class User {
   String username;
   String email;
-  String password;
-  User(String username, String email, String password) {
+  String _password;
+  User(String username, String email, String _password) {
     this.username = username;
     this.email = email;
-    this.password = password;
+    this._password = _password;
   }
 }
 
 class Donor extends User {
-  List<Book> books;
+  List<Book> _books;
   Donor(String username, String email, String password)
       : super(username, email, password);
 }

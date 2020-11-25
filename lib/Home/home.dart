@@ -4,7 +4,7 @@ import 'package:donorate_book/Model/models.dart';
 import 'package:donorate_book/Donor/DonorForm.dart';
 import 'package:footer/footer_view.dart';
 import 'package:donorate_book/Donor/Donors.dart';
-import 'package:donorate_book/Shared/footer.dart';
+import 'package:donorate_book/Requests/Requests.dart';
 
 class HomeApp extends StatefulWidget {
   @override
@@ -45,16 +45,47 @@ class Home extends State<HomeApp> {
   int _currentIndex = 0;
   final List<Widget> _children = [
     donor,
-    Text('Hello'),
+    UserList(),
     Text('Bello'),
+    Text('cello'),
   ];
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Donors'), backgroundColor: Colors.green),
+      appBar:
+          AppBar(title: Text('Donation Book'), backgroundColor: Colors.green),
       body: _children[_currentIndex],
-      bottomNavigationBar: footer,
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.lime,
+        onTap: onTabTapped,
+        currentIndex: _currentIndex,
+        backgroundColor: Colors.green,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home', style: TextStyle(color: Colors.black)),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.people),
+            title: Text('Requests', style: TextStyle(color: Colors.black)),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.library_books, color: Colors.black),
+            title: Text('your books', style: TextStyle(color: Colors.black)),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add, color: Colors.black),
+            title: Text('Donate', style: TextStyle(color: Colors.black)),
+          )
+        ],
+      ),
     );
   }
 }
