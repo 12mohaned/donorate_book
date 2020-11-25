@@ -14,7 +14,7 @@ class DonorCard extends StatelessWidget {
       Text(
         book.name,
         style: TextStyle(
-            height: 5,
+            height: 3.5,
             fontSize: 25,
             color: Colors.blueGrey,
             fontWeight: FontWeight.w500),

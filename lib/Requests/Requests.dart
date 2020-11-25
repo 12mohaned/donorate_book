@@ -29,16 +29,12 @@ class UserCard extends StatelessWidget {
       ))),
       Expanded(
           child: Center(
-              child: (RaisedButton(
-        child: Text(
-          "Accept",
-          style: TextStyle(fontSize: 20),
-        ),
-        onPressed: () => context,
+              child: RaisedButton.icon(
+        onPressed: (() {}),
+        icon: Icon(Icons.info),
+        label: Text('Info'),
         color: Colors.lime,
-        textColor: Colors.black,
-        padding: EdgeInsets.all(8.0),
-      ))))
+      )))
     ]));
   }
 }
