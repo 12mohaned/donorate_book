@@ -1,8 +1,10 @@
+import 'package:donorate_book/DatabaseServices/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:donorate_book/Home/home.dart';
 
 String _email;
 String _password;
+final AuthService _auth = null;
 
 class MyLoginForm extends StatefulWidget {
   @override
@@ -67,10 +69,10 @@ class LoginForm extends State<MyLoginForm> {
             onPressed: () async {
               if (_formkey.currentState.validate()) {
                 _formkey.currentState.save();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomeApp()),
-                );
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(builder: (context) => HomeApp()),
+                // );
               } else {}
             },
           )),

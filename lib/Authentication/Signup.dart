@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:donorate_book/DatabaseServices/auth.dart';
 
 String _name;
 String _password;
 String _email;
-
+final AuthService _auth = AuthService();
 final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
 class MySignupForm extends StatefulWidget {
@@ -93,7 +94,9 @@ class SignupForm extends State<MySignupForm> {
             onPressed: () async {
               if (_formkey.currentState.validate()) {
                 _formkey.currentState.save();
-                print(_email);
+                print(_auth);
+                dynamic result = await _auth.register(_name, _email, _password);
+                print(result == null);
               } else {}
             },
           )),
