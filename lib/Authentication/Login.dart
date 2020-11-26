@@ -4,7 +4,7 @@ import 'package:donorate_book/Home/home.dart';
 
 String _email;
 String _password;
-final AuthService _auth = null;
+final AuthService _auth = AuthService();
 
 class MyLoginForm extends StatefulWidget {
   @override
@@ -69,10 +69,16 @@ class LoginForm extends State<MyLoginForm> {
             onPressed: () async {
               if (_formkey.currentState.validate()) {
                 _formkey.currentState.save();
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => HomeApp()),
-                // );
+                dynamic result = await _auth.login(_email, _password);
+                if (result != null) {
+                  print(0);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeApp()),
+                  );
+                } else {
+                  print(1);
+                }
               } else {}
             },
           )),

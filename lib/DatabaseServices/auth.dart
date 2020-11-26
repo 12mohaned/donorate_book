@@ -19,4 +19,14 @@ class AuthService {
       print(e.toString());
     }
   }
+
+  Future login(String email, String password) async {
+    try {
+      AuthResult result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
+      return result == null ? false : true;
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }

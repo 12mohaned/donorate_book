@@ -1,3 +1,4 @@
+import 'package:donorate_book/Home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:donorate_book/DatabaseServices/auth.dart';
 
@@ -96,7 +97,12 @@ class SignupForm extends State<MySignupForm> {
                 _formkey.currentState.save();
                 print(_auth);
                 dynamic result = await _auth.register(_name, _email, _password);
-                print(result == null);
+                if (result != null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomeApp()),
+                  );
+                }
               } else {}
             },
           )),
