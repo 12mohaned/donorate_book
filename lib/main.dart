@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
             alignment: Alignment.center,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/book-background.jpg"),
+                image: AssetImage("assets/book_background.jpg"),
                 fit: BoxFit.cover,
               ),
             ),
