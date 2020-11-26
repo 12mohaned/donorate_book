@@ -56,17 +56,14 @@ Widget _buildEmail() {
 
 Widget _buildPassword() {
   return TextFormField(
+      obscureText: true,
       decoration: new InputDecoration(
         hintText: 'Password',
         icon: Icon(Icons.vpn_key),
         labelText: 'Password',
       ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Password' + ' is Required';
-        }
-        return null;
-      },
+      validator: (String value) =>
+          value.isEmpty ? 'Password is Required' : null,
       onSaved: (String value) {
         _password = value;
       });
@@ -93,9 +90,10 @@ class SignupForm extends State<MySignupForm> {
           new Container(
               child: new RaisedButton(
             child: const Text('Submit'),
-            onPressed: () {
+            onPressed: () async {
               if (_formkey.currentState.validate()) {
                 _formkey.currentState.save();
+                print(_email);
               } else {}
             },
           )),

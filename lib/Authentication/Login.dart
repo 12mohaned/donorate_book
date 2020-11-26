@@ -19,17 +19,11 @@ Widget _buildEmail() {
         icon: Icon(Icons.mail),
         labelText: 'Email',
       ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Email' + ' is Required';
-        }
-        if (!RegExp(
-                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-            .hasMatch(value)) {
-          return 'Email Format is not correct';
-        }
-        return null;
-      },
+      validator: (String value) => value.isEmpty |
+              !RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                  .hasMatch(value)
+          ? 'Email is either empty or in wrong format'
+          : null,
       onSaved: (String value) {
         _email = value;
       });
@@ -37,17 +31,14 @@ Widget _buildEmail() {
 
 Widget _buildPassword() {
   return TextFormField(
+      obscureText: true,
       decoration: new InputDecoration(
         hintText: 'Password',
         icon: Icon(Icons.vpn_key),
         labelText: 'Password',
       ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Password' + ' is Required';
-        }
-        return null;
-      },
+      validator: (String value) =>
+          value.isEmpty ? 'Password is required' : null,
       onSaved: (String value) {
         _password = value;
       });
@@ -73,7 +64,7 @@ class LoginForm extends State<MyLoginForm> {
           new Container(
               child: new RaisedButton(
             child: const Text('Submit'),
-            onPressed: () {
+            onPressed: () async {
               if (_formkey.currentState.validate()) {
                 _formkey.currentState.save();
                 Navigator.push(
