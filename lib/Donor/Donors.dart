@@ -41,26 +41,35 @@ class Booking extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text(book.name), backgroundColor: Colors.green),
-        body: Center(
-          child: Column(
-            children: [
-              Text(
-                book.info,
-                style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.black45,
-                    fontWeight: FontWeight.w500),
-              ),
-              RaisedButton.icon(
-                  onPressed: (() {}),
-                  icon: Icon(Icons.book),
-                  label: Text('book',
-                      style: TextStyle(
-                        color: Colors.black,
-                      )),
-                  color: Colors.white)
-            ],
-          ),
-        ));
+        body: Card(
+            child: Column(
+          children: [
+            SizedBox(height: 100),
+            Text(
+              book.info,
+              style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500),
+            ),
+            SizedBox(height: 50),
+            RaisedButton.icon(
+                onPressed: (() {}),
+                icon: Icon(Icons.book),
+                label: Text('book',
+                    style: TextStyle(
+                      color: Colors.black,
+                    )),
+                color: Colors.green),
+            SizedBox(height: 10),
+            Text(
+              'Donated by Mohaned',
+              style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500),
+            )
+          ],
+        )));
   }
 }

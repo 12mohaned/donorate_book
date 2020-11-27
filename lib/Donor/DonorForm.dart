@@ -13,6 +13,8 @@ class MyDonorForm extends StatefulWidget {
 
 String _bookName;
 String _bookInfo;
+bool _is_switch = false;
+
 final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 Widget _buildName() {
   return TextFormField(
@@ -45,6 +47,11 @@ Widget _buildInfo() {
 class DonorForm extends State<MyDonorForm> {
   // Create a global key that uniquely identifies the Form widget
   // and allows validation of the form.
+  onSwitchValueChanged(bool newVal) {
+    setState(() {
+      _is_switch = newVal;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +65,19 @@ class DonorForm extends State<MyDonorForm> {
         children: <Widget>[
           _buildName(),
           _buildInfo(),
+          Row(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
+            Text('Donate Anonymously',
+                style: TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.bold)),
+            Switch(
+              value: _is_switch,
+              onChanged: (value) {
+                onSwitchValueChanged(value);
+              },
+              activeTrackColor: Colors.lightGreenAccent,
+              activeColor: Colors.green,
+            )
+          ]),
           SizedBox(height: 10.0, width: 12.0),
           new Container(
               child: new RaisedButton(
