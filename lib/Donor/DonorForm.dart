@@ -18,15 +18,11 @@ Widget _buildName() {
   return TextFormField(
       decoration: new InputDecoration(
         hintText: 'Book Name',
-        icon: Icon(Icons.mail),
+        icon: Icon(Icons.library_books),
         labelText: 'Book Name',
       ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Book name' + ' is Required';
-        }
-        return null;
-      },
+      validator: (String value) =>
+          value.isEmpty ? 'Book name is required' : null,
       onSaved: (String value) {
         _bookName = value;
       });
@@ -39,12 +35,8 @@ Widget _buildInfo() {
         icon: Icon(Icons.info_outline),
         labelText: 'About the book',
       ),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Book info' + ' is Required';
-        }
-        return null;
-      },
+      validator: (String value) =>
+          value.isEmpty ? 'Book info is required' : null,
       onSaved: (String value) {
         _bookInfo = value;
       });
@@ -79,6 +71,7 @@ class DonorForm extends State<MyDonorForm> {
                 // );
               } else {}
             },
+            color: Colors.green,
           )),
         ],
       ),
