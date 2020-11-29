@@ -1,3 +1,4 @@
+import 'package:donorate_book/DatabaseServices/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:donorate_book/Model/models.dart';
 
@@ -14,6 +15,7 @@ class AuthService {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       FirebaseUser user = result.user;
+      await DataBaseService(uid: user.uid).updateUserData(username, email);
       return _userFromFirebaseUser(user, username, email, password);
     } catch (e) {
       print(e.toString());

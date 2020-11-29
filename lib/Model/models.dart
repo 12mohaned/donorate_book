@@ -23,10 +23,13 @@ class User {
   }
 }
 
-class Donor extends User {
-  List<Book> _books;
-  Donor(String uid, String username, String email, String password)
-      : super(uid, username, email, password);
+class Donation {
+  User user;
+  Book book;
+  Donation(User user, Book book) {
+    this.user = user;
+    this.book = book;
+  }
 }
 
 enum Category { novel, university, school, others }

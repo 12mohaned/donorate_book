@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:donorate_book/Model/models.dart';
+import 'package:flutter_multiselect/flutter_multiselect.dart';
 
 /* Returns the donation form to fill when dontaing a book
 
@@ -14,8 +16,48 @@ class MyDonorForm extends StatefulWidget {
 String _bookName;
 String _bookInfo;
 bool _is_switch = false;
-
+Donation _donation;
+List<Category> _categories = [];
 final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+
+Widget _buildSelect() {
+  return MultiSelect(
+      autovalidate: false,
+      titleText: 'title',
+      validator: (value) {
+        if (value == null) {
+          return 'Please select one or more option(s)';
+        }
+      },
+      errorText: 'Please select one or more option(s)',
+      dataSource: [
+        {
+          "display": "Australia",
+          "value": 1,
+        },
+        {
+          "display": "Canada",
+          "value": 2,
+        },
+        {
+          "display": "India",
+          "value": 3,
+        },
+        {
+          "display": "United States",
+          "value": 4,
+        }
+      ],
+      textField: 'display',
+      valueField: 'value',
+      filterable: true,
+      required: true,
+      value: null,
+      onSaved: (value) {
+        print('The value is $value');
+      });
+}
+
 Widget _buildName() {
   return TextFormField(
       decoration: new InputDecoration(
@@ -65,6 +107,7 @@ class DonorForm extends State<MyDonorForm> {
         children: <Widget>[
           _buildName(),
           _buildInfo(),
+          _buildSelect(),
           Row(crossAxisAlignment: CrossAxisAlignment.center, children: <Widget>[
             Text('Donate Anonymously',
                 style: TextStyle(
@@ -85,6 +128,14 @@ class DonorForm extends State<MyDonorForm> {
             onPressed: () {
               if (_formkey.currentState.validate()) {
                 _formkey.currentState.save();
+                _donation = Donation(
+                    User('1000', 'Mohaned Mashaly',
+                        'mohaned.mashaly12@gmail.com', 'tarek12/'),
+                    Book(
+                        'Outliers',
+                        'The Story of Success is the third non-fiction book written by Malcolm Gladwell and published by Little, Brown and Company on November 18, 2008. In Outliers, Gladwell examines the factors that contribute to high levels of success',
+                        Category.novel));
+                print(_donation.book.name);
                 // Navigator.push(
                 //   context,
                 //   MaterialPageRoute(builder: (context) => HomeApp()),
