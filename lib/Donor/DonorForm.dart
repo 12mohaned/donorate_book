@@ -1,3 +1,4 @@
+import 'package:donorate_book/Location/DonorLocation.dart';
 import 'package:flutter/material.dart';
 import 'package:donorate_book/Model/models.dart';
 import 'package:flutter_multiselect/flutter_multiselect.dart';
@@ -21,41 +22,60 @@ List<Category> _categories = [];
 final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 
 Widget _buildSelect() {
-  return MultiSelect(
-      autovalidate: false,
-      titleText: 'title',
-      validator: (value) {
-        if (value == null) {
-          return 'Please select one or more option(s)';
-        }
-      },
-      errorText: 'Please select one or more option(s)',
-      dataSource: [
-        {
-          "display": "Australia",
-          "value": 1,
-        },
-        {
-          "display": "Canada",
-          "value": 2,
-        },
-        {
-          "display": "India",
-          "value": 3,
-        },
-        {
-          "display": "United States",
-          "value": 4,
-        }
-      ],
-      textField: 'display',
-      valueField: 'value',
-      filterable: true,
-      required: true,
-      value: null,
-      onSaved: (value) {
-        print('The value is $value');
-      });
+  return Container(
+      color: Colors.green,
+      child: (MultiSelect(
+          autovalidate: false,
+          titleText: 'title',
+          validator: (value) {
+            if (value == null) {
+              return 'Please select one or more option(s)';
+            }
+            return null;
+          },
+          errorText: 'Please select one or more option(s)',
+          dataSource: [
+            {
+              "display": "Novel",
+              "value": 1,
+            },
+            {
+              "display": "University",
+              "value": 2,
+            },
+            {
+              "display": "School",
+              "value": 3,
+            },
+            {
+              "display": "Others",
+              "value": 4,
+            }
+          ],
+          textField: 'display',
+          valueField: 'value',
+          filterable: true,
+          required: true,
+          value: null,
+          onSaved: (value) {
+            for (int i = 0; i < value.length; i++) {
+              _categories.add(categoryType(value[i]));
+            }
+          })));
+}
+
+Category categoryType(int value) {
+  switch (value) {
+    case 1:
+      return Category.novel;
+    case 2:
+      return Category.university;
+    case 3:
+      return Category.school;
+      break;
+    default:
+      return Category.others;
+  }
 }
 
 Widget _buildName() {
@@ -128,18 +148,18 @@ class DonorForm extends State<MyDonorForm> {
             onPressed: () {
               if (_formkey.currentState.validate()) {
                 _formkey.currentState.save();
+                String username = '1000';
+                if (_is_switch == false) {
+                  username = null;
+                }
                 _donation = Donation(
                     User('1000', 'Mohaned Mashaly',
                         'mohaned.mashaly12@gmail.com', 'tarek12/'),
-                    Book(
-                        'Outliers',
-                        'The Story of Success is the third non-fiction book written by Malcolm Gladwell and published by Little, Brown and Company on November 18, 2008. In Outliers, Gladwell examines the factors that contribute to high levels of success',
-                        Category.novel));
-                print(_donation.book.name);
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (context) => HomeApp()),
-                // );
+                    Book(_bookName, _bookInfo, _categories));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DashboardScreen()),
+                );
               } else {}
             },
             color: Colors.green,

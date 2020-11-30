@@ -1,9 +1,9 @@
 class Book {
   String name;
   String info;
-  Category category;
+  List<Category> category;
 
-  Book(String name, String info, Category category) {
+  Book(String name, String info, List<Category> category) {
     this.name = name;
     this.info = info;
     this.category = category;
