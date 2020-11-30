@@ -2,6 +2,7 @@ import 'package:donorate_book/Location/DonorLocation.dart';
 import 'package:flutter/material.dart';
 import 'package:donorate_book/Model/models.dart';
 import 'package:flutter_multiselect/flutter_multiselect.dart';
+import 'package:donorate_book/DatabaseServices/database.dart';
 
 /* Returns the donation form to fill when dontaing a book
 
@@ -20,7 +21,7 @@ bool _is_switch = false;
 Donation _donation;
 List<Category> _categories = [];
 final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
-
+DataBaseService _db = new DataBaseService();
 Widget _buildSelect() {
   return Container(
       color: Colors.green,
@@ -145,7 +146,7 @@ class DonorForm extends State<MyDonorForm> {
           new Container(
               child: new RaisedButton(
             child: const Text('Submit'),
-            onPressed: () {
+            onPressed: () async {
               if (_formkey.currentState.validate()) {
                 _formkey.currentState.save();
                 String username = '1000';
@@ -156,9 +157,15 @@ class DonorForm extends State<MyDonorForm> {
                     User('1000', 'Mohaned Mashaly',
                         'mohaned.mashaly12@gmail.com', 'tarek12/'),
                     Book(_bookName, _bookInfo, _categories));
+                dynamic result = await _db.updateBookData(
+                  _bookName,
+                  _bookInfo,
+                  'Mohaned Mashaly',
+                );
+                print(result.toString());
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => DashboardScreen()),
+                  MaterialPageRoute(builder: (context) => DonorLocation()),
                 );
               } else {}
             },
