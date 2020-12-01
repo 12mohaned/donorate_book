@@ -1,4 +1,6 @@
+import 'package:donorate_book/DatabaseServices/auth.dart';
 import 'package:donorate_book/Location/DonorLocation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:donorate_book/Model/models.dart';
 import 'package:flutter_multiselect/flutter_multiselect.dart';
@@ -18,7 +20,7 @@ class MyDonorForm extends StatefulWidget {
 String _bookName;
 String _bookInfo;
 bool _is_switch = false;
-Donation _donation;
+AuthService _auth = AuthService();
 List<Category> _categories = [];
 final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
 DataBaseService _db = new DataBaseService();
@@ -149,20 +151,17 @@ class DonorForm extends State<MyDonorForm> {
             onPressed: () async {
               if (_formkey.currentState.validate()) {
                 _formkey.currentState.save();
-                String username = '1000';
-                if (_is_switch == false) {
-                  username = null;
-                }
-                _donation = Donation(
-                    User('1000', 'Mohaned Mashaly',
-                        'mohaned.mashaly12@gmail.com', 'tarek12/'),
-                    Book(_bookName, _bookInfo, _categories));
+                if (_is_switch == false) {}
+
+                String email = await _auth.getUser();
+
+                Book(_bookName, _bookInfo, _categories);
                 dynamic result = await _db.updateBookData(
                   _bookName,
                   _bookInfo,
-                  'Mohaned Mashaly',
+                  email,
                 );
-                print(result.toString());
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => DonorLocation()),
